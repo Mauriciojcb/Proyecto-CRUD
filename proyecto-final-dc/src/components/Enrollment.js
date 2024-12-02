@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Menu from './Menu'; // Asegúrate de importar el componente del menú
 import './Enrollment.css';
 
 const Enrollment = () => {
@@ -34,6 +35,7 @@ const Enrollment = () => {
 
   return (
     <div className="enrollment-container">
+      <Menu /> {/* Agrega el menú aquí */}
       <h1>Inscripción de Alumnos a Materias</h1>
       <div className="form">
         <select

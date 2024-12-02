@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Menu from './Menu'; // Asegúrate de importar el componente del menú
 import './SubjectsCRUD.css';
 
 const SubjectsCRUD = () => {
@@ -42,6 +43,7 @@ const SubjectsCRUD = () => {
 
   return (
     <div className="subjects-crud-container">
+      <Menu /> {/* Agrega el menú aquí */}
       <h1>Gestión de Materias</h1>
       <div className="form">
         <input

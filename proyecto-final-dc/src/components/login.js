@@ -1,33 +1,27 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (username === 'admin' && password === 'admin123') {
-      onLogin(); // Llama a la función pasada desde App.js
+    if (username === 'admin') {
+      onLogin();
+      navigate('/'); // Redirige a la vista de bienvenida después del login
     } else {
-      setError('Usuario o contraseña incorrectos');
+      alert('Credenciales incorrectas');
     }
   };
 
   return (
-    <div className="login-container">
-      <h1>Iniciar Sesión</h1>
-      {error && <p className="error-message">{error}</p>}
+    <div>
+      <h2>Iniciar sesión</h2>
       <input
         type="text"
-        placeholder="Usuario"
+        placeholder="Nombre de usuario"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Ingresar</button>
     </div>

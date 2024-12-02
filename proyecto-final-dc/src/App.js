@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SplashScreen from './components/SplashScreen';
 import Welcome from './components/Welcome';
 import Login from './components/Login';
@@ -10,43 +10,34 @@ import Grades from './components/Grades';
 import './App.css';
 
 function App() {
-  const [currentView, setCurrentView] = useState('splash');
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Controla si el usuario está logueado
 
   const handleLogin = () => {
-    setCurrentView('welcome'); // Cambia a la pantalla de bienvenida tras un login exitoso
+    setIsLoggedIn(true); // Cuando el login es exitoso
   };
-
-  const handleEnter = () => setCurrentView('menu');
 
   return (
     <Router>
       <div className="app">
-        {currentView === 'splash' && <SplashScreen onFinish={() => setCurrentView('welcome')} />}
-        {currentView === 'welcome' && <Welcome onEnter={handleEnter} />}
-        {currentView === 'menu' && (
+        {/* Ruta para la pantalla de login */}
+        {!isLoggedIn ? (
+          <Routes>
+            <Route path="/" element={<Login onLogin={handleLogin} />} />
+          </Routes>
+        ) : (
           <>
-            <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
-              <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
-                ☰
-              </button>
-              <nav>
-                <Link to="/">Login</Link>
-                <Link to="/students">Gestionar Alumnos</Link>
-                <Link to="/subjects">Gestionar Materias</Link>
-                <Link to="/enrollments">Inscripción</Link>
-                <Link to="/grades">Captura de Calificaciones</Link>
-              </nav>
-            </div>
-            <main>
-              <Routes>
-                <Route path="/" element={<Login onLogin={handleLogin} />} />
-                <Route path="/students" element={<StudentsCRUD />} />
-                <Route path="/subjects" element={<SubjectsCRUD />} />
-                <Route path="/enrollments" element={<Enrollment />} />
-                <Route path="/grades" element={<Grades />} />
-              </Routes>
-            </main>
+            {/* Ruta para la pantalla de bienvenida después del login */}
+            <Routes>
+              <Route path="/" element={<Welcome />} />
+            </Routes>
+
+            {/* Rutas para las demás interfaces */}
+            <Routes>
+              <Route path="/students" element={<StudentsCRUD />} />
+              <Route path="/subjects" element={<SubjectsCRUD />} />
+              <Route path="/enrollments" element={<Enrollment />} />
+              <Route path="/grades" element={<Grades />} />
+            </Routes>
           </>
         )}
       </div>

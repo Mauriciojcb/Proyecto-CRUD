@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Menu from './Menu'; // Asegúrate de importar el componente del menú
 import './Grades.css';
 
 const GradesCapture = () => {
@@ -41,6 +42,7 @@ const GradesCapture = () => {
 
   return (
     <div className="grades-capture-container">
+      <Menu /> {/* Agrega el menú aquí */}
       <h1>Captura de Calificaciones</h1>
       <div className="form">
         <select

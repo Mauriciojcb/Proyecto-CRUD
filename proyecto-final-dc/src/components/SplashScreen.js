@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './SplashScreen.css';
 
 const SplashScreen = ({ onFinish }) => {
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onFinish();
-    }, 3000); // Duración del splash screen
-    return () => clearTimeout(timeout);
+    const timer = setTimeout(() => {
+      onFinish(); // Después de 3 segundos, redirige al login
+    }, 3000);
+
+    return () => clearTimeout(timer); // Limpia el temporizador si el componente se desmonta
   }, [onFinish]);
 
   return (
     <div className="splash-screen">
-      <h1>Sistema Escolar</h1>
-      <p>Cargando...</p>
+      <h1>Cargando...</h1>
     </div>
   );
 };

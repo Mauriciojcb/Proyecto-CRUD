@@ -1,12 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Welcome.css';
 
-const Welcome = ({ onEnter }) => {
+const Welcome = () => {
+  const navigate = useNavigate(); // Hook para la navegación
+
+  const handleNavigation = (route) => {
+    navigate(`/${route.toLowerCase()}`); // Navegar a la ruta correspondiente
+  };
+
   return (
     <div className="welcome-container">
-      <h1>Bienvenido al Sistema Escolar</h1>
-      <p>Por favor, selecciona una opción en el menú para comenzar.</p>
-      <button onClick={onEnter}>Entrar al Menú</button>
+      <h1>Bienvenido a la Gestión Escolar</h1>
+      <button onClick={() => handleNavigation('Students')}>Gestionar Alumnos</button>
+      <button onClick={() => handleNavigation('Subjects')}>Gestionar Materias</button>
+      <button onClick={() => handleNavigation('Enrollments')}>Inscripción</button>
+      <button onClick={() => handleNavigation('Grades')}>Captura de Calificaciones</button>
     </div>
   );
 };
