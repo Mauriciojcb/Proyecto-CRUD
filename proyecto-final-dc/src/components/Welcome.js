@@ -11,7 +11,8 @@ const Welcome = () => {
 
   return (
     <div className="welcome-container">
-      <h1>Bienvenido a la Gestión Escolar</h1>
+      <img src="/i1.png" alt="EduManage Logo" className="login-logo" />
+      <h1>Bienvenido</h1>
       <button onClick={() => handleNavigation('Students')}>Gestionar Alumnos</button>
       <button onClick={() => handleNavigation('Subjects')}>Gestionar Materias</button>
       <button onClick={() => handleNavigation('Enrollments')}>Inscripción</button>

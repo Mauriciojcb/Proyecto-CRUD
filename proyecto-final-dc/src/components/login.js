@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -15,15 +16,18 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <h2>Iniciar sesión</h2>
+    <div className="login-container">
+      {/* Usar la ruta pública para acceder a la imagen */}
+      <img src="/i1.png" alt="EduManage Logo" className="login-logo" />
+      <h2 className='texto1'>Control Escolar</h2>
+      <h3>Login</h3>
       <input
-        type="text"
-        placeholder="Nombre de usuario"
+        type="email"
+        placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <button onClick={handleLogin}>Ingresar</button>
+      <button onClick={handleLogin}>Iniciar Sesión</button>
     </div>
   );
 };
