@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
-import Menu from './Menu'; // Asegúrate de importar el componente del menú
+import React, { useState, useEffect } from 'react';
+import { useStudents } from '../context/StudentsContext'; // Importa el contexto
+import Menu from './Menu';
 import './StudentsCRUD.css';
 
 const StudentsCRUD = () => {
-  const [students, setStudents] = useState([]);
+  const { students, setStudents } = useStudents(); // Accede al estado compartido
   const [newStudent, setNewStudent] = useState({ name: '', lastName: '', career: '' });
   const [editIndex, setEditIndex] = useState(null);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const savedStudents = JSON.parse(localStorage.getItem('students'));
+    if (savedStudents) {
+      setStudents(savedStudents);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (students.length > 0) {
+      localStorage.setItem('students', JSON.stringify(students));
+    }
+  }, [students]);
 
   const handleAddStudent = () => {
     if (newStudent.name.trim() === '' || newStudent.lastName.trim() === '' || newStudent.career.trim() === '') {
@@ -43,7 +57,7 @@ const StudentsCRUD = () => {
 
   return (
     <div className="students-crud-container">
-      <Menu /> {/* Agrega el menú aquí */}
+      <Menu />
       <img src="/i1.png" alt="EduManage Logo" className="login-logo" />
       <h1>Gestión de Alumnos</h1>
       <div className="form">
@@ -65,13 +79,11 @@ const StudentsCRUD = () => {
           value={newStudent.career}
           onChange={(e) => setNewStudent({ ...newStudent, career: e.target.value })}
         />
-        
         {editIndex !== null ? (
           <button onClick={handleSaveEdit}>Guardar</button>
         ) : (
-          <button onClick={handleAddStudent}>Agregar</button>
+          <button onClick={handleAddStudent}>Registrar Alumno</button>
         )}
-        
         {error && <p className="error">{error}</p>}
       </div>
       <ul className="students-list">

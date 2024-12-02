@@ -42,6 +42,7 @@ const GradesCapture = () => {
 
   return (
     <div className="grades-capture-container">
+      <img src="/i1.png" alt="EduManage Logo" className="login-logo" />
       <Menu /> {/* Agrega el menú aquí */}
       <h1>Captura de Calificaciones</h1>
       <div className="form">
@@ -68,14 +69,16 @@ const GradesCapture = () => {
         <button onClick={handleAddGrade}>Capturar</button>
         {error && <p className="error">{error}</p>}
       </div>
-      <ul className="grades-list">
-        {grades.map((gradeItem, index) => (
-          <li key={index}>
-            {gradeItem.student} → {gradeItem.subject}: {gradeItem.grade}
-            <button onClick={() => handleDeleteGrade(index)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
+      <div className="grades-list-container">
+        <ul className="grades-list">
+          {grades.map((gradeItem, index) => (
+            <li key={index}>
+              {gradeItem.student} → {gradeItem.subject}: {gradeItem.grade}
+              <button onClick={() => handleDeleteGrade(index)}>Eliminar</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

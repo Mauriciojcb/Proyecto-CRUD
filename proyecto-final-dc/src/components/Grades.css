@@ -24,7 +24,7 @@ body {
 
 /* Contenedor general */
 .grades-capture-container {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(160, 160, 160);
     border-radius: 20px;
     padding: 40px;
     width: 500px;
@@ -93,10 +93,16 @@ button:hover {
 }
 
 /* Lista de calificaciones */
+.grades-list-container {
+    max-height: 300px;  /* Ajusta la altura del contenedor */
+    overflow-y: auto;  /* Activa el scroll vertical */
+    margin-top: 20px;
+}
+
 .grades-list {
     list-style: none;
     padding: 0;
-    margin-top: 20px;
+    margin: 0;
 }
 
 .grades-list li {
