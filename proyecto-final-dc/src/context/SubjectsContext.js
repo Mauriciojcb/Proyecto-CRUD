@@ -1,9 +1,20 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const SubjectsContext = createContext();
 
+export const useSubjects = () => useContext(SubjectsContext);
+
 export const SubjectsProvider = ({ children }) => {
-  const [subjects, setSubjects] = useState([]);
+  // Carga inicial desde localStorage
+  const [subjects, setSubjects] = useState(() => {
+    const savedSubjects = localStorage.getItem('subjects');
+    return savedSubjects ? JSON.parse(savedSubjects) : [];
+  });
+
+  // Sincroniza los datos con localStorage cada vez que cambian
+  useEffect(() => {
+    localStorage.setItem('subjects', JSON.stringify(subjects));
+  }, [subjects]);
 
   return (
     <SubjectsContext.Provider value={{ subjects, setSubjects }}>
@@ -11,5 +22,3 @@ export const SubjectsProvider = ({ children }) => {
     </SubjectsContext.Provider>
   );
 };
-
-export const useSubjects = () => useContext(SubjectsContext);

@@ -1,33 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useSubjects } from '../context/SubjectsContext'; // Importa el contexto
+import React, { useState } from 'react';
+import { useSubjects } from '../context/SubjectsContext';
 import Menu from './Menu';
 import './SubjectsCRUD.css';
 
 const SubjectsCRUD = () => {
-  const { subjects, setSubjects } = useSubjects(); // Accede al estado global
+  const { subjects, setSubjects } = useSubjects();
   const [newSubject, setNewSubject] = useState('');
   const [teacher, setTeacher] = useState('');
   const [schedule, setSchedule] = useState('');
   const [editIndex, setEditIndex] = useState(null);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const savedSubjects = JSON.parse(localStorage.getItem('subjects'));
-    if (savedSubjects) {
-      setSubjects(savedSubjects);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('subjects', JSON.stringify(subjects));
-  }, [subjects]);
-
   const handleAddSubject = () => {
     if (newSubject.trim() === '' || teacher.trim() === '' || schedule.trim() === '') {
       setError('Todos los campos deben ser llenados.');
       return;
     }
-    setSubjects([...subjects, { name: newSubject, teacher, schedule }]);
+
+    const newSubjects = [...subjects, { name: newSubject, teacher, schedule }];
+    setSubjects(newSubjects);
     setNewSubject('');
     setTeacher('');
     setSchedule('');
@@ -47,6 +38,7 @@ const SubjectsCRUD = () => {
       setError('Todos los campos deben ser llenados.');
       return;
     }
+
     const updatedSubjects = [...subjects];
     updatedSubjects[editIndex] = { name: newSubject, teacher, schedule };
     setSubjects(updatedSubjects);
@@ -58,7 +50,8 @@ const SubjectsCRUD = () => {
   };
 
   const handleDeleteSubject = (index) => {
-    setSubjects(subjects.filter((_, i) => i !== index));
+    const filteredSubjects = subjects.filter((_, i) => i !== index);
+    setSubjects(filteredSubjects);
   };
 
   return (
