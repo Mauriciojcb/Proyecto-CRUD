@@ -11,7 +11,6 @@ import Menu from './components/Menu';
 import './App.css';
 
 // Importa los contextos
-import { EnrollmentsProvider } from './context/EnrollmentsContext'; // Asegúrate de importar correctamente el contexto
 import { StudentsProvider } from './context/StudentsContext';
 import { SubjectsProvider } from './context/SubjectsContext';
 
@@ -27,31 +26,29 @@ function App() {
   };
 
   return (
-    // Proveemos el contexto de inscripciones, estudiantes y materias
-    <EnrollmentsProvider>
-      <StudentsProvider>
-        <SubjectsProvider>
-          <Router>
-            <div className="app">
-              {isLoggedIn && <Menu onLogout={handleLogout} />}
-              <Routes>
-                <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />
-                <Route path="/login" element={!isLoggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/welcome" />} />
-                <Route path="/welcome" element={isLoggedIn ? <Welcome /> : <Navigate to="/login" />} />
-                {isLoggedIn && (
-                  <>
-                    <Route path="/students" element={<StudentsCRUD />} />
-                    <Route path="/subjects" element={<SubjectsCRUD />} />
-                    <Route path="/enrollments" element={<Enrollment />} />
-                    <Route path="/grades" element={<GradesCapture />} /> {/* Asegúrate de usar GradesCapture */}
-                  </>
-                )}
-              </Routes>
-            </div>
-          </Router>
-        </SubjectsProvider>
-      </StudentsProvider>
-    </EnrollmentsProvider>
+    // Proveemos el contexto de estudiantes y materias
+    <StudentsProvider>
+      <SubjectsProvider>
+        <Router>
+          <div className="app">
+            {isLoggedIn && <Menu onLogout={handleLogout} />}
+            <Routes>
+              <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />
+              <Route path="/login" element={!isLoggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/welcome" />} />
+              <Route path="/welcome" element={isLoggedIn ? <Welcome /> : <Navigate to="/login" />} />
+              {isLoggedIn && (
+                <>
+                  <Route path="/students" element={<StudentsCRUD />} />
+                  <Route path="/subjects" element={<SubjectsCRUD />} />
+                  <Route path="/enrollments" element={<Enrollment />} />
+                  <Route path="/grades" element={<GradesCapture />} /> {/* Asegúrate de usar GradesCapture */}
+                </>
+              )}
+            </Routes>
+          </div>
+        </Router>
+      </SubjectsProvider>
+    </StudentsProvider>
   );
 }
 

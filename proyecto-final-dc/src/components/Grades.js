@@ -4,9 +4,8 @@ import './Grades.css';
 
 const GradesCapture = () => {
   const [enrollments, setEnrollments] = useState([
-    { student: 'Juan Pérez', subject: 'Matemáticas' },
-    { student: 'María López', subject: 'Historia' },
-  ]); // Datos simulados
+    { student: 'Jared Noe Landeros', subject: 'Desarrollo Colaborativo' },
+  ]); 
   const [grades, setGrades] = useState([]);
   const [selectedEnrollment, setSelectedEnrollment] = useState('');
   const [grade, setGrade] = useState('');
